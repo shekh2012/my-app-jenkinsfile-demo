@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="2ab6774b-e928-48d4-bc9c-024a899a8f3c" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="my-app-demoFlow" doc:id="361cad39-e889-4046-a921-1407fbf620af" >
+		<http:listener doc:name="Listener" doc:id="81a84b93-3981-423e-adb8-8a3a0fee37ba" config-ref="HTTP_Listener_config" path="/app"/>
+		<logger level="INFO" doc:name="Request Received" doc:id="aeee9202-27b1-4edd-91bc-98244ca8554f" message="Request Received #[payload]"/>
+		<ee:transform doc:name="Message" doc:id="9c6d3446-6a65-4304-8a13-db5571548d2e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message : "Success !!!"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
