@@ -15,7 +15,7 @@ pipeline{
 		
 		stage('Integration Testing'){
 			steps{
-				bat 'newman run "D:\Doctus\Doctus.postman_collection.json"'
+				bat 'D:\\node-v12.16.1-win-x64\\newman run D:\\Doctus\\Doctus.postman_collection.json'
 			}
 		}
 		
